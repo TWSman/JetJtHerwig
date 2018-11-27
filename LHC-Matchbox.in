@@ -143,7 +143,7 @@ read Matchbox/MMHT2014.in
 ##################################################
 
 cd /Herwig/Analysis
-create MyName::Foo foo Foo.so
+create JtAnalysis::Foo foo Foo.so
 insert /Herwig/Generators/EventGenerator:AnalysisHandlers 0 foo
 # insert Rivet:Analyses 0 XXX_2015_ABC123
 # insert /Herwig/Generators/EventGenerator:AnalysisHandlers 0 Rivet

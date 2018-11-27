@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef MyName_Foo_H
-#define MyName_Foo_H
+#ifndef JtAnalysis_Foo_H
+#define JtAnalysis_Foo_H
 //
 // This is the declaration of the Foo class.
 //
@@ -17,7 +17,7 @@
 
 class AliJJetJtHistos;
 
-namespace MyName {
+namespace JtAnalysis {
 
 using namespace ThePEG;
 
@@ -175,4 +175,4 @@ public:
 
 }
 
-#endif /* MyName_Foo_H */
+#endif /* JtAnalysis_Foo_H */

@@ -23,7 +23,7 @@
 
 
 
-using namespace MyName;
+using namespace JtAnalysis;
 
 Foo::Foo():
   fJTracks("AliJBaseTrack",1000),
@@ -299,7 +299,7 @@ IBPtr Foo::fullclone() const {
 // arguments are correct (the class name and the name of the dynamically
 // loadable library where the class implementation can be found).
 DescribeNoPIOClass<Foo,AnalysisHandler>
-  describeMyNameFoo("MyName::Foo", "Foo.so");
+  describeJtAnalysisFoo("JtAnalysis::Foo", "Foo.so");
 
 void Foo::Init() {
   static ClassDocumentation<Foo> documentation
