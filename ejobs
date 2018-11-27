@@ -1,0 +1,54 @@
+#!/bin/bash 
+############################
+
+PROG=`basename $0`
+if [ $# -ne 2 ]
+then
+    echo "Usage: $PROG runFile comment"
+    exit;
+fi
+
+function setenv(){ export $1=$2; }
+
+setenv runFile $1
+setenv comment $2
+#################################
+# Output file locations
+#################################
+setenv Main_DIR     `pwd`
+setenv DoWhat       HerwigJetJt
+setenv oname        Herwig_pp5TeV_$runFile_$comment
+setenv Disk         `pwd`
+setenv OUT_ERRORS   $Disk/outputs/${oname}/errors
+setenv Out_DIR      $Disk/outputs/${oname}/data
+setenv LOG_DIR      $Disk/outputs/${oname}/logs
+#################################
+# Need for serial job in sepeli(pbs)
+#################################
+setenv noFileToRun 500
+#################################
+
+mkdir -p $OUT_ERRORS
+mkdir -p $Out_DIR
+mkdir -p $LOG_DIR
+
+#################################
+# Runlist to scan
+#################################
+
+# simplify this !!!
+cat << EOF > exec_jetjt_$comment
+#!/bin/bash -f
+cd $Main_DIR
+source setup.sh.elc
+export sedN=1000
+export iseg=\$SLURM_ARRAY_TASK_ID
+sedN=\`expr \$sedN + \${iseg}\`
+export outfile=$Out_DIR/$DoWhat-\$sedN.root
+export Log=$LOG_DIR/$DoWhat-\$sedN.log
+./Herwig run --seed=\$sedN $runFile -N 10000>& \$Log
+cd $Main_DIR
+EOF
+#\${what} \$outfile \$sedN 5000000 >& \$Log
+chmod +x exec_jetjt_$comment
+    sbatch -v --array=1-$noFileToRun exec_jetjt_$comment -J $comment  -e $OUT_ERRORS -o $OUT_ERRORS
