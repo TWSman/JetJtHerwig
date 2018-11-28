@@ -1,0 +1,5 @@
+export FASTJET=/n/work00/towisnel/fastjet/fastjet-install
+source /n/work00/towisnel/root6/build-python2/bin/thisroot.sh
+source /n/work00/towisnel/Herwig/Install/bin/activate
+
+

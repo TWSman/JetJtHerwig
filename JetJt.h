@@ -1,8 +1,8 @@
 // -*- C++ -*-
-#ifndef JtAnalysis_Foo_H
-#define JtAnalysis_Foo_H
+#ifndef JtAnalysis_JetJt_H
+#define JtAnalysis_JetJt_H
 //
-// This is the declaration of the Foo class.
+// This is the declaration of the JetJt class.
 //
 
 #include "ThePEG/Handlers/AnalysisHandler.h"
@@ -22,12 +22,12 @@ namespace JtAnalysis {
 using namespace ThePEG;
 
 /**
- * Here is the documentation of the Foo class.
+ * Here is the documentation of the JetJt class.
  *
- * @see \ref FooInterfaces "The interfaces"
- * defined for Foo.
+ * @see \ref JetJtInterfaces "The interfaces"
+ * defined for JetJt.
  */
-class Foo: public AnalysisHandler {
+class JetJt: public AnalysisHandler {
 
 public:
 
@@ -36,12 +36,12 @@ public:
   /**
    * The default constructor.
    */
-  Foo();
+  JetJt();
 
   /**
    * The destructor.
    */
-  virtual ~Foo();
+  virtual ~JetJt();
   //@}
   Double_t getDiffR(double phi1, double phi2, double eta1, double eta2);
   int GetBin(TVector *array, double val);
@@ -169,10 +169,10 @@ public:
    * The assignment operator is private and must never be called.
    * In fact, it should not even be implemented.
    */
-  Foo & operator=(const Foo &);
+  JetJt & operator=(const JetJt &);
 
 };
 
 }
 
-#endif /* JtAnalysis_Foo_H */
+#endif /* JtAnalysis_JetJt_H */

@@ -1,4 +1,5 @@
 Foo.so
+JetJt.so
 Herwig-scratch/
 LHC-Matchbox-EvtGen.log
 LHC-Matchbox.log
@@ -11,6 +12,7 @@ nanoDict.cc
 nanoDict.o
 nanoDict_rdict.pcm
 output.root
+outputs/
 plot.eps
 src/AliJBaseCard.o
 src/AliJBaseTrack.o
@@ -21,3 +23,4 @@ src/AliJHistogramInterface.o
 src/AliJJet.o
 src/AliJJetJtHistos.o
 src/AliJPhoton.o
+slurm*

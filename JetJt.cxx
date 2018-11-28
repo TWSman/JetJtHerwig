@@ -1,10 +1,10 @@
 // -*- C++ -*-
 //
 // This is the implementation of the non-inlined, non-templated member
-// functions of the Foo class.
+// functions of the JetJt class.
 //
 
-#include "Foo.h"
+#include "JetJt.h"
 #include "TFile.h"
 #include "ThePEG/Interface/ClassDocumentation.h"
 #include "ThePEG/EventRecord/Particle.h"
@@ -25,7 +25,7 @@
 
 using namespace JtAnalysis;
 
-Foo::Foo():
+JetJt::JetJt():
   fJTracks("AliJBaseTrack",1000),
   fJJets("AliJJet",100)
   {
@@ -33,7 +33,7 @@ Foo::Foo():
 
 }
 
-Foo::~Foo() {}
+JetJt::~JetJt() {}
 
 
 
@@ -44,7 +44,7 @@ Foo::~Foo() {}
 #include "ThePEG/Analysis/LWH/AnalysisFactory.h"
 #endif
 
-void Foo::analyze(tEventPtr event, long ieve, int loop, int state) {
+void JetJt::analyze(tEventPtr event, long ieve, int loop, int state) {
   vector<fastjet::PseudoJet> chparticles;
   vector<fastjet::PseudoJet> jets;
   fastjet::PseudoJet fTrack;
@@ -247,26 +247,26 @@ void Foo::analyze(tEventPtr event, long ieve, int loop, int state) {
   }//end of the anti-kt-jet loop
 }
 
-LorentzRotation Foo::transform(tcEventPtr event) const {
+LorentzRotation JetJt::transform(tcEventPtr event) const {
   return LorentzRotation();
   // Return the Rotation to the frame in which you want to perform the analysis.
 }
 
-void Foo::analyze(const tPVector & particles, double weight) {
+void JetJt::analyze(const tPVector & particles, double weight) {
   AnalysisHandler::analyze(particles);
   // Calls analyze() for each particle.
 }
 
-void Foo::analyze(tPPtr, double weight) {}
+void JetJt::analyze(tPPtr, double weight) {}
 
-void Foo::dofinish() {
+void JetJt::dofinish() {
   fout->Write();
   fout->Close();
   //AnalysisHandler::dofinish();
   // *** ATTENTION *** Normalize and post-process histograms here.
 }
 
-void Foo::doinitrun() {
+void JetJt::doinitrun() {
   fout = new TFile("output.root","RECREATE");
   fout->cd();//opening of the output file
   char* cardName = "cardAlice_pp.input";
@@ -279,11 +279,11 @@ void Foo::doinitrun() {
 }
 
 
-IBPtr Foo::clone() const {
+IBPtr JetJt::clone() const {
   return new_ptr(*this);
 }
 
-IBPtr Foo::fullclone() const {
+IBPtr JetJt::fullclone() const {
   return new_ptr(*this);
 }
 
@@ -298,17 +298,17 @@ IBPtr Foo::fullclone() const {
 // are correct (the class and its base class), and that the constructor
 // arguments are correct (the class name and the name of the dynamically
 // loadable library where the class implementation can be found).
-DescribeNoPIOClass<Foo,AnalysisHandler>
-  describeJtAnalysisFoo("JtAnalysis::Foo", "Foo.so");
+DescribeNoPIOClass<JetJt,AnalysisHandler>
+  describeJtAnalysisJetJt("JtAnalysis::JetJt", "JetJt.so");
 
-void Foo::Init() {
-  static ClassDocumentation<Foo> documentation
-    ("There is no documentation for the Foo class");
+void JetJt::Init() {
+  static ClassDocumentation<JetJt> documentation
+    ("There is no documentation for the JetJt class");
 
 }
 
 
-double Foo::getDiffR(double phi1, double phi2, double eta1, double eta2){
+double JetJt::getDiffR(double phi1, double phi2, double eta1, double eta2){
   double diffPhi = TMath::Abs(phi1-phi2);
   if(diffPhi > TMath::Pi()){
     diffPhi = 2*TMath::Pi() - diffPhi;
@@ -316,7 +316,7 @@ double Foo::getDiffR(double phi1, double phi2, double eta1, double eta2){
   return TMath::Sqrt(TMath::Power(diffPhi,2)+TMath::Power(eta1-eta2,2));
 }
 
-int Foo::GetBin(TVector *array, double val){
+int JetJt::GetBin(TVector *array, double val){
   int iBin=-1;
   for(int i=1; i< array->GetNoElements(); i++){
     if((*array)[i] <= val && val<(*array)[i+1]){

@@ -1,4 +1,4 @@
-PROGRAM       =  Foo
+PROGRAM       =  JetJt
 version       = JTKT
 CXX           = g++
 #CXXFLAGS      = -O -Wall -g -Wno-deprecated -bind_at_load -D$(version)

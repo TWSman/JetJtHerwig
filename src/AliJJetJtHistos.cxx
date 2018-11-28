@@ -185,7 +185,6 @@ AliJJetJtHistos::~AliJJetJtHistos() {
 //______________________________________________________________________________
 void AliJJetJtHistos::CreateEventTrackHistos(){
   fJetTriggPtBorders = fCard->GetVector("JetTriggPtBorders");
-  fJetTriggPtBorders->Print();
   fJetConstPtLowLimits = fCard->GetVector("JetConstPtLowLimits");
   fJetAssocPtBorders = fCard->GetVector("JetAssocPtBorders");
   fJetLeadPtBorders = fCard->GetVector("JetLeadPtBorders");
@@ -198,8 +197,7 @@ void AliJJetJtHistos::CreateEventTrackHistos(){
   // set AliJBin here //
   fHistCentBin.Set("CentBin","CentBin","Cent:",AliJBin::kSingle).SetBin(fNCentBin);
   fJetBin.Set("JetBin","JetBin","Jet bin:",AliJBin::kSingle).SetBin(5);
-  fJetFinderBin.Set("JetFinderBin","JetFinderBin","Jet Finder Bin:",AliJBin::kSingle).SetBin(3);
-
+  fJetFinderBin .Set("JetFinderOrder","NFin","Finder:%s", AliJBin::kSingle).SetBin(3);
   fJetTriggerBin.Set("JetTriggerBin","JetPt","p_{T,jet} : %.1f - %.1f").SetBin(fCard->GetVector("JetTriggPtBorders"));
   fTrkPtBin .Set("TrkPtBin","TrkPt","p_{T,constituent}:%.1f-%.1f").SetBin(fCard->GetVector("JetAssocPtBorders"));
   fTrkLimPtBin .Set("TrkLimitPtBin","TrkLimitPt","p_{T,Limit}<%.1f", AliJBin::kSingle).SetBin(fJetConstPtLowLimits->GetNoElements());

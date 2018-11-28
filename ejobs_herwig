@@ -1,0 +1,60 @@
+#!/bin/bash
+############################
+
+
+PROG=`basename $0`
+if [ $# -ne 2 ]
+then
+    echo "Usage: $PROG runFile comment"
+    exit;
+fi
+
+function setenv(){ export $1=$2; }
+
+#################################
+# Output file locations
+#################################
+setenv Main_DIR     `pwd`
+setenv DoWhat        Herwig
+setenv config        $1
+setenv comment       $2
+setenv oname         Herwig-$comment
+setenv Disk         `pwd`
+setenv OUT_ERRORS   $Disk/outputs/${oname}/errors
+setenv OUT_DIR      $Disk/outputs/${oname}/data
+setenv LOG_DIR      $Disk/outputs/${oname}/logs
+
+#################################
+setenv noFileToRun 2
+#################################
+
+mkdir -p $OUT_ERRORS
+mkdir -p $OUT_DIR
+mkdir -p $LOG_DIR
+
+#################################
+# Runlist to scan
+#################################
+
+# simplify this !!! 
+cat << EOF > exec_$oname
+#!/bin/bash -f
+source setup.sh.elc
+export start=$SECONDS
+export sedN=1000
+export iseg=\$SLURM_ARRAY_TASK_ID
+sedN=\`expr \$sedN + \${iseg}\`
+export outfile=$oname-\${sedN}.root 
+export Log=$oname-\${sedN}.log
+Herwig run $config -N10000 -s \$sedN >& \$Log
+# COPY to storage
+#cp \$outfile  $OUT_DIR/
+#cp \$Log $LOG_DIR/
+mv output.root $OUT_DIR/\$outfile
+mv \$LOG \$LOG_DIR/
+duration=$(( SECONDS - start ))
+echo "Completed in $duration seconds"
+EOF
+
+chmod +x exec_$oname
+  sbatch -v --array=1-$noFileToRun exec_$oname -J $comment -e $OUT_ERRORS -o $OUT_ERRORS
