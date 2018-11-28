@@ -193,7 +193,7 @@ void AliJJetJtHistos::CreateEventTrackHistos(){
   fJetEtaCut = fCard-> Get("JetEtaCut");
   fXlongBorders = fCard->GetVector("xEBorders");
   // Create basic event histograms
-  fHMG = new AliJHistManager("AliJCDijetHistManager","jcdijet");
+  fHMG = new AliJHistManager("AliJJetJtHistManager","JJetJt");
   // set AliJBin here //
   fHistCentBin.Set("CentBin","CentBin","Cent:",AliJBin::kSingle).SetBin(fNCentBin);
   fJetBin.Set("JetBin","JetBin","Jet bin:",AliJBin::kSingle).SetBin(5);
