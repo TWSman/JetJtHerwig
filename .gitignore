@@ -24,3 +24,7 @@ src/AliJJet.o
 src/AliJJetJtHistos.o
 src/AliJPhoton.o
 slurm*
+exec*
+*.out
+*.log
+*.tex
