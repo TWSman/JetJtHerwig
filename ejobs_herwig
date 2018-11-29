@@ -22,15 +22,17 @@ setenv oname         Herwig-$comment
 setenv Disk         `pwd`
 setenv OUT_ERRORS   $Disk/outputs/${oname}/errors
 setenv OUT_DIR      $Disk/outputs/${oname}/data
+setenv Wrk_DIR      $Disk/outputs/${oname}/wrk
 setenv LOG_DIR      $Disk/outputs/${oname}/logs
 
 #################################
-setenv noFileToRun 1
+setenv noFileToRun 50
 #################################
 
 mkdir -p $OUT_ERRORS
 mkdir -p $OUT_DIR
 mkdir -p $LOG_DIR
+mkdir -p $Wrk_DIR
 
 #################################
 # Runlist to scan
@@ -44,13 +46,21 @@ export start=\$SECONDS
 export sedN=1000
 export iseg=\$SLURM_ARRAY_TASK_ID
 sedN=\`expr \$sedN + \${iseg}\`
-export outfile=$oname-\${sedN}.root
+export outfile=$OUT_DIR/$oname-\${sedN}.root
 export Log=$oname-\${sedN}.log
-Herwig run $config -N100000 -s \$sedN >& \$Log
-mv output.root $OUT_DIR/\$outfile
+export wrkdir=$Wrk_DIR/\$iseg
+mkdir -p \$wrkdir
+cd \$wrkdir
+ln -sf $Main_DIR/JetJt.so JetJt.so
+ln -sf $Main_DIR/cardAlice_pp.input cardAlice_pp.input
+ln -sf $Main_DIR/Herwig-scratch Herwig-scratch
+ln -sf $Main_DIR/nanoDict_rdict.pcm nanoDict_rdict.pcm
+Herwig run $Main_DIR/$config -N1000000 -s \$sedN >& \$Log
+mv output.root \$outfile
 duration=\$(( SECONDS - start ))
 echo "Completed in \$duration seconds" >> \$Log
 mv \$Log $LOG_DIR/
+cd $Main_DIR
 EOF
 
 chmod +x exec_$oname
