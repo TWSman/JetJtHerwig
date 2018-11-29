@@ -1,11 +1,6 @@
 Foo.so
 JetJt.so
 Herwig-scratch/
-LHC-Matchbox-EvtGen.log
-LHC-Matchbox.log
-LHC-Matchbox.out
-LHC-Matchbox.run
-LHC-Matchbox.tex
 Makefile_Pythia
 Makefile_back
 nanoDict.cc
@@ -14,6 +9,8 @@ nanoDict_rdict.pcm
 output.root
 outputs/
 plot.eps
+*.run
+*.log
 src/AliJBaseCard.o
 src/AliJBaseTrack.o
 src/AliJCDijetHistos.o
