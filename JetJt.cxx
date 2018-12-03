@@ -127,6 +127,10 @@ void JetJt::analyze(tEventPtr event, long ieve, int loop, int state) {
     if(TMath::Abs(eta) < etaMaxCutForJet) {
       pt = jet->Pt();
       iBin = GetBin(fhistos->fJetTriggPtBorders,pt); // fill jetPt histos
+      if(iBin == -1 ){
+        cout << "iBin == -1 " << " Jet pT was " << pt << endl;
+        continue;
+      }
       phi = jet->Phi();
       for (int icon = 0; icon<jet->GetConstituents()->GetEntries(); icon++){
         AliJBaseTrack *con = jet->GetConstituent(icon);
